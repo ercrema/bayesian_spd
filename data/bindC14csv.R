@@ -27,6 +27,13 @@ c14data$SiteID = paste0("S",as.numeric(as.factor(c14data$所在地)))
 ## Eliminate Dates without a Labcode
 c14data = subset(c14data,試料番号!="不明") #"不明" is unknown in Japanese
 
+## Fix Errors
+# Non numeric C14 Error
+c14data=c14data[-which(c14data$C14年代.=='0.4pMC'),]
+c14data$C14年代. = as.numeric(c14data$C14年代.)
+# Eliminate Overly large C14 Error (>100 years)
+c14data=c14data[-which(c14data$C14年代.>100),]
+
 #### Eliminate Dates with the same Lab-Code
 c14data$retain=TRUE
 any(duplicated(c14data$試料番号)) # Presence of Duplicated Lab-Codes
@@ -37,6 +44,7 @@ duplicate.names = names(duplicate.counts)
 for (i in 1:length(duplicate.names))
 {
   tmp.index=which(c14data$試料番号==duplicate.names[i])
+  # if dates have the same labcode but different CRA and/or CRA Error, eliminate the samples
   if (length(unique(c14data$C14年代[tmp.index]))>1 |
       length(unique(c14data$C14年代.[tmp.index]))>1 |
       length(unique(c14data$SiteID[tmp.index]))>1)
