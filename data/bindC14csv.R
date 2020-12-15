@@ -1,5 +1,5 @@
 #### This scripts prepare the radiocarbon dates downloaded from the "Database of radiocarbon dates published in Japanese archaeological research reports) (URL: https://www.rekihaku.ac.jp/up-cgi/login.pl?p=param/esrd/db_param). 
-#### Queries were carried out on the 14th of December 2020 by specifying the Prefectures (Fukuoka, Kagoshima, Miyazaki,Nagasaki, Ooita, and Saga), and by setting "試料分類" (Material Classification) to "T: 陸産物" (Terrestial), and C14 age interval between 4000 and 0.
+#### Queries were carried out on the 14th of December 2020 by specifying the Prefectures (Fukuoka, Kagoshima, Miyazaki,Nagasaki, Ooita, and Saga), and by setting "試料分類" (Material Classification) to "T: 陸産物" (Terrestial), and a C14 age interval between 7000 and 0. 
 #### Downloaded CSV files were originally encoded in Shift-JIS and re-encoded in UTF-8
 
 #### Load Packages ####
@@ -7,13 +7,13 @@ library(dplyr)
 library(here)
 
 #### Read CSV Files ####
-fukuokaC14 = read.csv(here('data','fukuoka_T_4000_to_0_14122020.csv'))
-kagoshimaC14 = read.csv(here('data','kagoshima_T_4000_to_0_14122020.csv'))
-kumamotoC14 = read.csv(here('data','kumamoto_T_4000_to_0_14122020.csv'))
-miyazakiC14 = read.csv(here('data','miyazaki_T_4000_to_0_14122020.csv'))
-nagasakiC14 = read.csv(here('data','nagasaki_T_4000_to_0_14122020.csv'))
-ooitaC14 = read.csv(here('data','ooita_T_4000_to_0_14122020.csv'))
-sagaC14 = read.csv(here('data','saga_T_4000_to_0_14122020.csv'))
+fukuokaC14 = read.csv(here('data','fukuoka_T_7000_to_0_14122020.csv'))
+kagoshimaC14 = read.csv(here('data','kagoshima_T_7000_to_0_14122020.csv'))
+kumamotoC14 = read.csv(here('data','kumamoto_T_7000_to_0_14122020.csv'))
+miyazakiC14 = read.csv(here('data','miyazaki_T_7000_to_0_14122020.csv'))
+nagasakiC14 = read.csv(here('data','nagasaki_T_7000_to_0_14122020.csv'))
+ooitaC14 = read.csv(here('data','ooita_T_7000_to_0_14122020.csv'))
+sagaC14 = read.csv(here('data','saga_T_7000_to_0_14122020.csv'))
 
 
 #### Combine into a single data.frame
@@ -62,14 +62,14 @@ c14data = subset(c14data,retain==TRUE)
 c14data$都道府県=recode(c14data$都道府県,"40：福岡県"="Fukuoka","41：佐賀県"="Saga","42：長崎県"="Nagasaki","43：熊本県"="Kumamoto","44：大分県"="Ooita","45：宮崎県"="Miyazaki","46：鹿児島県"="Kagoshima")
 
 ####Remove Dates on bones
-length(grep("骨",as.character(c14data$試料の種類))) #38 cases
+length(grep("骨",as.character(c14data$試料の種類))) #43 cases
 c14data=c14data[-grep("骨",as.character(c14data$試料の種類)),] #Remove Bones
 
 ####Determine clear Anthrophic Contexts
 anthroContext = '住居|埋葬|竪穴建物|掘立柱|墓|包含層|土坑|ピット|土器|捨場|遺構|炉|人骨|木舟|住|柱|Pit|焼土|カマド|床面|溝中|溝底部|建物跡|木製品|埋土|水田|竪坑|羨道|集石|漆器'
 c14data$anthropic=NA
 c14data$anthropic[grepl(anthroContext,c14data$サンプル採取地点等)]=TRUE
-
+sum(c14data$anthropic,na.rm=TRUE)
 
 ####Select only relevant fields
 c14data = select(c14data,都道府県,遺跡名,SiteID,試料番号,C14年代,C14年代.,anthropic)
