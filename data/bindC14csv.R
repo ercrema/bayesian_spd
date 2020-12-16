@@ -69,11 +69,10 @@ c14data=c14data[-grep("骨",as.character(c14data$試料の種類)),] #Remove Bon
 anthroContext = '住居|埋葬|竪穴建物|掘立柱|墓|包含層|土坑|ピット|土器|捨場|遺構|炉|人骨|木舟|住|柱|Pit|焼土|カマド|床面|溝中|溝底部|建物跡|木製品|埋土|水田|竪坑|羨道|集石|漆器'
 c14data$anthropic=NA
 c14data$anthropic[grepl(anthroContext,c14data$サンプル採取地点等)]=TRUE
-sum(c14data$anthropic,na.rm=TRUE)
-
+c14data=subset(c14data,anthropic==TRUE)
 ####Select only relevant fields
-c14data = select(c14data,都道府県,遺跡名,SiteID,試料番号,C14年代,C14年代.,anthropic)
-colnames(c14data) = c("Prefecture","SiteName","SiteID","LabCode","CRA","Error","Anthropic")  
+c14data = select(c14data,都道府県,遺跡名,SiteID,試料番号,C14年代,C14年代.)
+colnames(c14data) = c("Prefecture","SiteName","SiteID","LabCode","CRA","Error")  
 
 ####Save into R image File
 save(c14data,file=here('data','c14data.RData'))
