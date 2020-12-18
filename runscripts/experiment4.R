@@ -19,7 +19,7 @@ estimated.r1 = estimated.r1.90hpd.lo = estimated.r1.90hpd.hi = estimated.r2 = es
 modelPlot(model=dDoubleExponentialGrowth,a=a,b=b,params=paramsList,type=c('spaghetti'),interval=0.9,calendar='BCAD',alpha=0.5)
 
 
-for (k in 1:length(ndates))
+for (k in 1:nrow(params))
 {
   for (i in 1:nsim)
   {
