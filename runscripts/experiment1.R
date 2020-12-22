@@ -9,7 +9,7 @@ b=4000
 data("intcal20")
 nsim = 20
 ndates = 500
-true.r = c(0.001,0.005,0.01)
+true.r = c(0.001,0.003,0.005)
 estimated.r = estimated.90hpd.lo = estimated.90hpd.hi =matrix(nrow=length(true.r),ncol=nsim)
 
 modelPlot(model=dExponentialGrowth,a=a,b=b,params=list(r=true.r),type=c('spaghetti'),interval=0.9,calendar='BCAD',alpha=0.5)
