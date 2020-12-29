@@ -1,18 +1,14 @@
 # Load Relevant Libraries ####
 library(rcarbon)
 library(nimbleCarbon)
-library(bridgesampling)
+library(coda)
 library(here)
 # Load Cleaned Data ####
 load(here('R_images','cleaned_data.RData')) 
 
-# Preliminary Analysis (SPD, Bin Sensitivty) ####
-obs.spd = spd(obs.caldates,timeRange=c(3450,1850))
-binsense(x = obs.caldates, y = obs.data$SiteID,timeRange=c(3450,1850),h=c(0,50,100,200),binning='calibrated')
-
 # Define Models ####
 # Exponential Growth
-modelPlot(model=dExponentialGrowth,a=3400,b=1850,params=list(r=rexp(1000, 1/0.0004))) #using as mean rate the average growth rate from Zahid et al 2015
+#modelPlot(model=dExponentialGrowth,a=3400,b=1850,params=list(r=rexp(1000, 1/0.0004))) #using as mean rate the average growth rate from Zahid et al 2015
 
 m1 <- nimbleCode({
   for (i in 1:N){
@@ -26,8 +22,9 @@ m1 <- nimbleCode({
 })  
 
 # Double Exponential
-modelPlot(model=dDoubleExponentialGrowth,a=3400,b=1850,params=list(r1=rnorm(1000, sd=0.0004),r2=rnorm(1000, sd=0.0004),mu=round(runif(1000,1851,3339)))) #using as sd rate the average growth rate from Zahid et al 2015
+#modelPlot(model=dDoubleExponentialGrowth,a=3400,b=1850,params=list(r1=rnorm(1000, sd=0.0004),r2=rnorm(1000, sd=0.0004),mu=round(runif(1000,1851,3339)))) 
 
+#using as sd rate the average growth rate from Zahid et al 2015
 m2 <- nimbleCode({
   for (i in 1:N){
     theta[i] ~ dDoubleExponentialGrowth(a=3400,b=1850,r1=r1,r2=r2,mu=changept);
@@ -48,13 +45,13 @@ data(intcal20)
 constants <- list(N=length(obs.caldates),calBP=intcal20$CalBP,C14BP=intcal20$C14Age,C14err=intcal20$C14Age.sigma)
 data <- list(X=obs.data$CRA,sigma=obs.data$Error)
 
-# Build and Compile Models ####
-model1 <- nimbleModel(code = m1, name = "Exponential Growth", constants = constants,data = data,inits =  list(r=0.001,theta=obs.data$MedCalDate))
-model2 <- nimbleModel(code = m2, name = "Double Exponential Growth", constants = constants,data = data,inits = list(r1=-0.001,r2=0.002,chp=2800,theta=obs.data$MedCalDate))
+# Define Initialisation Function
+initsFunction.m1 = function() list(r=rexp(1,1/0.0004),theta=as.numeric(obs.data$MedCalDate))
+initsFunction.m2 = function() list(r1=rnorm(0,sd=0.0004),r2=rnorm(0,sd=0.0004),chp=runif(1851,3339),theta=as.numeric(obs.data$MedCalDate))
 
-# Run MCMC with WAIC ####
-mcmc.m1.samples<- nimbleMCMC(model = model1,niter = 50000, nchains = 2, thin=3,nburnin = 20000,summary = TRUE,monitors=c('r','theta'),WAIC=TRUE,samplesAsCodaMCMC=TRUE)
-mcmc.m2.samples<- nimbleMCMC(model = model2,niter = 50000, nchains = 2, thin=3,nburnin = 20000,summary = TRUE,monitors=c('r1','r2','chp','theta'),WAIC=TRUE,samplesAsCodaMCMC=TRUE)
+# Run MCMC ####
+mcmc.m1.samples<- nimbleMCMC(code = m1,constants = constants,data = data,niter = 60000, nchains = 4, thin=5, nburnin = 10000, summary = TRUE, monitors=c('r','theta'),WAIC=TRUE,samplesAsCodaMCMC=TRUE,inits=initsFunction.m1)
+mcmc.m1.samples<- nimbleMCMC(code = m2,constants = constants,data = data,niter = 60000, nchains = 4, thin=5, nburnin = 10000, summary = TRUE, monitors=c('r1','r2','chp','theta'),WAIC=TRUE,samplesAsCodaMCMC=TRUE,inits=initsFunction.m2)
 
 # Quick Summaries
 gelman.diag(mcmc.m1.samples$samples)$psrf[1:2,]
