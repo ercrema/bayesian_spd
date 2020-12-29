@@ -30,7 +30,7 @@ constants <- list(N=length(obs.caldates),calBP=intcal20$CalBP,C14BP=intcal20$C14
 data <- list(X=obs.data$CRA,sigma=obs.data$Error)
 
 # Define Initialisation Function
-initsFunction.m2 = function() list(r1=rnorm(0,sd=0.0004),r2=rnorm(0,sd=0.0004),chp=runif(1851,3339),theta=as.numeric(obs.data$MedCalDate))
+initsFunction.m2 = function() list(r1=rnorm(1,sd=0.0004),r2=rnorm(1,sd=0.0004),chp=round(runif(1,1851,3339)),theta=as.numeric(obs.data$MedCalDate))
 
 # Run MCMC ####
 mcmc.m1.samples<- nimbleMCMC(code = m2,constants = constants,data = data,niter = 100000, nchains = 4, thin=5, nburnin = 10000, summary = TRUE, monitors=c('r1','r2','chp','theta'),WAIC=TRUE,samplesAsCodaMCMC=TRUE,inits=initsFunction.m2)
