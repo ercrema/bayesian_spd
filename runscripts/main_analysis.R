@@ -50,8 +50,8 @@ initsFunction.m1 = function() list(r=rexp(1,1/0.0004),theta=as.numeric(obs.data$
 initsFunction.m2 = function() list(r1=rnorm(0,sd=0.0004),r2=rnorm(0,sd=0.0004),chp=runif(1851,3339),theta=as.numeric(obs.data$MedCalDate))
 
 # Run MCMC ####
-mcmc.m1.samples<- nimbleMCMC(code = m1,constants = constants,data = data,niter = 60000, nchains = 4, thin=5, nburnin = 10000, summary = TRUE, monitors=c('r','theta'),WAIC=TRUE,samplesAsCodaMCMC=TRUE,inits=initsFunction.m1)
-mcmc.m1.samples<- nimbleMCMC(code = m2,constants = constants,data = data,niter = 60000, nchains = 4, thin=5, nburnin = 10000, summary = TRUE, monitors=c('r1','r2','chp','theta'),WAIC=TRUE,samplesAsCodaMCMC=TRUE,inits=initsFunction.m2)
+mcmc.m1.samples<- nimbleMCMC(code = m1,constants = constants,data = data,niter = 100000, nchains = 4, thin=5, nburnin = 10000, summary = TRUE, monitors=c('r','theta'),WAIC=TRUE,samplesAsCodaMCMC=TRUE,inits=initsFunction.m1)
+mcmc.m1.samples<- nimbleMCMC(code = m2,constants = constants,data = data,niter = 100000, nchains = 4, thin=5, nburnin = 10000, summary = TRUE, monitors=c('r1','r2','chp','theta'),WAIC=TRUE,samplesAsCodaMCMC=TRUE,inits=initsFunction.m2)
 
 # Quick Summaries
 gelman.diag(mcmc.m1.samples$samples)$psrf[1:2,]
