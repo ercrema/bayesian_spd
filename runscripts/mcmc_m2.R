@@ -1,6 +1,7 @@
 # Load Relevant Libraries ####
 library(rcarbon)
 library(nimbleCarbon)
+library(truncnorm)
 library(coda)
 library(here)
 # Load Cleaned Data ####
@@ -19,8 +20,8 @@ m2 <- nimbleCode({
     X[i] ~ dnorm(mean=mu[i],sd=sd[i]);
   }
   r1 ~ dnorm(0,sd=0.0004); 
-  r2 ~ dnorm(0,sd=0.0004);
-  chp ~ dunif(1851,3339);
+  r2 ~ dexp(1/0.0004);
+  chp ~ T(dnorm(2625,sd=200),1850,3400);
   changept <- round(chp);
 })  
 
@@ -30,10 +31,10 @@ constants <- list(N=length(obs.caldates),calBP=intcal20$CalBP,C14BP=intcal20$C14
 data <- list(X=obs.data$CRA,sigma=obs.data$Error)
 
 # Define Initialisation Function
-initsFunction.m2 = function() list(r1=rnorm(1,sd=0.0004),r2=rnorm(1,sd=0.0004),chp=round(runif(1,1851,3339)),theta=as.numeric(obs.data$MedCalDate))
+initsFunction.m2 = function() list(r1=rnorm(1,sd=0.0004),r2=rexp(1,1/0.0004),chp=round(rtruncnorm(1,mean=2625,a=1850,b=3400)),theta=as.numeric(obs.data$MedCalDate))
 
 # Run MCMC ####
-mcmc.m1.samples<- nimbleMCMC(code = m2,constants = constants,data = data,niter = 100000, nchains = 4, thin=5, nburnin = 10000, summary = TRUE, monitors=c('r1','r2','chp','theta'),WAIC=TRUE,samplesAsCodaMCMC=TRUE,inits=initsFunction.m2)
+mcmc.m2.samples<- nimbleMCMC(code = m2,constants = constants,data = data,niter = 100000, nchains = 3, thin=5, nburnin = 10000, summary = FALSE, monitors=c('r1','r2','chp','theta'),WAIC=TRUE,samplesAsCodaMCMC=TRUE,inits=initsFunction.m2,setSeed=c(1,2,3))
 
 # Quick Summaries
 gelman.diag(mcmc.m2.samples$samples)$psrf[1:3,]
