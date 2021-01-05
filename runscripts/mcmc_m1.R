@@ -29,7 +29,7 @@ data <- list(X=obs.data$CRA,sigma=obs.data$Error)
 initsFunction.m1 = function() list(r=rexp(1,1/0.0004),theta=as.numeric(obs.data$MedCalDate))
 
 # Run MCMC ####
-mcmc.m1.samples<- nimbleMCMC(code = m1,constants = constants,data = data,niter = 100000, nchains = 3, thin=5, nburnin = 10000, summary = FALSE, monitors=c('r','theta'),WAIC=TRUE,samplesAsCodaMCMC=TRUE,inits=initsFunction.m1,setSeed=c(1,2,3))
+mcmc.m1.samples<- nimbleMCMC(code = m1,constants = constants,data = data,niter = 100000, nchains = 3, thin=6, nburnin = 10000, summary = FALSE, monitors=c('r','theta'),WAIC=TRUE,samplesAsCodaMCMC=TRUE,inits=initsFunction.m1,setSeed=c(1,2,3))
 
 # Quick Summaries
 gelman.diag(mcmc.m1.samples$samples)$psrf[1:2,]
