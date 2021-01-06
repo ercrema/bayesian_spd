@@ -29,7 +29,7 @@ table2 = data.frame(Model = c('m1','m2','m2','m2','m3','m3','m3','m3'),
                                    HPDinterval(mcmc.m3.samples$samples,prob=0.90)$chain1[4,2],
                                    HPDinterval(mcmc.m3.samples$samples,prob=0.90)$chain1[2,2],
                                    abs(BPtoBCAD(round(HPDinterval(mcmc.m3.samples$samples,prob=0.90)$chain1[1,1])))))
-write.csv(table2,here('manuscript','tables','table2.csv'))
+write.csv(table2,here('manuscript','tables','table2.csv'),row.names = FALSE)
 
 ### Table 3 Model Comparison ####
 m1=mcmc.m1.samples
