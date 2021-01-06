@@ -10,23 +10,35 @@ library(here)
 library(rcarbon)
 library(nimbleCarbon)
 library(truncnorm)
+library(choroplethrAdmin1)
+library(choroplethr)
 library(latex2exp)
+library(dplyr)
 load(here('R_images','cleaned_data.RData'))
 load(here('R_images','mcmc.m1.samples.RData'))
 load(here('R_images','mcmc.m2.samples.RData'))
 load(here('R_images','mcmc.m3.samples.RData'))
 load(here('R_images','mcmc_diagnostics_and_ppcheck.RData'))
-load(here('R_images','experiment1_results.RData'))
-load(here('R_images','experiment2_results.RData'))
-load(here('R_images','experiment3a_results.RData'))
-load(here('R_images','experiment3b_results.RData'))
-load(here('R_images','experiment4_results.RData'))
+load(here('data','c14data.RData'))
+
 ```
 
 
-
-
 ```{r s1_figure,fig.width=6,fig.height=6,echo=FALSE}
+obs.sites.dates = left_join(obs.data,c14data,by=c('LabCode'='LabCode'))
+c14samples=table(obs.sites.dates$Prefecture)
+kyushu = tolower(names(c14samples))
+kyushu[6]='oita'
+df = data.frame(region=kyushu,value=as.numeric(c14samples)/sum(as.numeric(c14samples))*100)
+admin1_choropleth('japan',df = df,legend='Percentage Samples',num_colors = 1,'',kyushu)
+```
+\begin{center}
+Figure S1: Geographic distribution of radiocarbon dates
+\end{center}
+\newpage
+
+
+```{r s2_figure,fig.width=6,fig.height=6,echo=FALSE}
 a = 3450
 b = 1850
 true.mu = 2800
@@ -46,19 +58,19 @@ for (i in 1:9)
 }
 ```
 \begin{center}
-Figure S1: Growth Models for Experiment 4
+Figure S2: Growth Models for Experiment 4
 \end{center}
 \newpage
 
-```{r s2_figure,fig.width=7,fig.height=4,echo=FALSE}
+```{r s3_figure,fig.width=7,fig.height=4,echo=FALSE}
 binsense(x=obs.caldates,y=obs.data$SiteID,calendar='BCAD',timeRange=c(a,b),h=c(0,50,100,200),verbose=FALSE)
 ```
 \begin{center}
-Figure S2: Bin Sensitivity Analysis
+Figure S3: Bin Sensitivity Analysis
 \end{center}
 \newpage
 
-```{r s3_figure,fig.width=7.5,fig.height=3.5,echo=FALSE}
+```{r s4_figure,fig.width=7.5,fig.height=3.5,echo=FALSE}
 n = 500
 set.seed(123)
 prior.m1 = list(r=rexp(n,1/0.0004))
@@ -70,22 +82,22 @@ modelPlot(dDoubleExponentialGrowth,a=3450,b=1850,params = prior.m2,nsample = 500
 modelPlot(dExponentialLogisticGrowth,a=3450,b=1850,params = prior.m3,nsample = 500,alpha=0.05,main='m3',calendar='BCAD',ylim=c(0,0.0025))
 ```
 \begin{center}
-Figure S3: Prior Predictive Checks
+Figure S4: Prior Predictive Checks
 \end{center}
 \newpage
 
-```{r, s4_figure,fig.width=6,fig.height=6,echo=FALSE}
+```{r, s5_figure,fig.width=6,fig.height=6,echo=FALSE}
 par(mfrow=c(3,1),mar=c(4,4,2,1))
 plot(as.numeric(mcmc.m1.samples$samples$chain1[,'r']),type='l',xlab='MCMC Sample',ylab=TeX('$r$'),main='Chain 1')
 plot(as.numeric(mcmc.m1.samples$samples$chain2[,'r']),type='l',xlab='MCMC Sample',ylab=TeX('$r$'),main='Chain 2')
 plot(as.numeric(mcmc.m1.samples$samples$chain3[,'r']),type='l',xlab='MCMC Sample',ylab=TeX('$r$'),main='Chain 3')
 ```
 \begin{center}
-Figure S4: Model 1 Trace Plots
+Figure S5: Model 1 Trace Plots
 \end{center}
 \newpage
 
-```{r, s5_figure,fig.width=7.5,fig.height=6,echo=FALSE}
+```{r, s6_figure,fig.width=7.5,fig.height=6,echo=FALSE}
 par(mfrow=c(3,3),mar=c(4,4,2,1))
 plot(as.numeric(mcmc.m2.samples$samples$chain1[,'r1']),type='l',xlab='MCMC Sample',ylab=TeX('$r_1$'),main='Chain 1')
 plot(as.numeric(mcmc.m2.samples$samples$chain2[,'r1']),type='l',xlab='MCMC Sample',ylab=TeX('$r_1$'),main='Chain 2')
@@ -100,11 +112,11 @@ plot(BPtoBCAD(as.numeric(mcmc.m2.samples$samples$chain2[,'chp'])),type='l',xlab=
 plot(BPtoBCAD(as.numeric(mcmc.m2.samples$samples$chain3[,'chp'])),type='l',xlab='MCMC Sample',ylab=TeX('$c$'),main='Chain 3')
 ```
 \begin{center}
-Figure S5: Model 2 Trace Plots
+Figure S6: Model 2 Trace Plots
 \end{center}
 \newpage
 
-```{r, s6_figure,fig.width=7.5,fig.height=7.5,echo=FALSE}
+```{r, s7_figure,fig.width=7.5,fig.height=7.5,echo=FALSE}
 par(mfrow=c(4,3),mar=c(4,4,2,1))
 plot(as.numeric(mcmc.m3.samples$samples$chain1[,'r1']),type='l',xlab='MCMC Sample',ylab=TeX('$r_1$'),main='Chain 1')
 plot(as.numeric(mcmc.m3.samples$samples$chain2[,'r1']),type='l',xlab='MCMC Sample',ylab=TeX('$r_1$'),main='Chain 2')
@@ -123,7 +135,7 @@ plot(BPtoBCAD(as.numeric(mcmc.m3.samples$samples$chain2[,'chp'])),type='l',xlab=
 plot(BPtoBCAD(as.numeric(mcmc.m3.samples$samples$chain3[,'chp'])),type='l',xlab='MCMC Sample',ylab=TeX('$c$'),main='Chain 3')
 ```
 \begin{center}
-Figure S6: Model 3 Trace Plots
+Figure S7: Model 3 Trace Plots
 \end{center}
 \newpage
 
