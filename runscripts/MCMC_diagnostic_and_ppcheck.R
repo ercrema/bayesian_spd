@@ -38,4 +38,4 @@ pp.check.m3.calsample=postPredSPD(obs.data$CRA,obs.data$Error,calCurve = 'intcal
 pp.check.m3.uncalsample=postPredSPD(obs.data$CRA,obs.data$Error,calCurve = 'intcal20',model = dExponentialLogisticGrowth,a = 3400,b=1850,params=params.m3,nsim = 500,ncores = 5,verbose=FALSE,method='uncalsample')
 
 
-save(rhat.m1,rhat.m2,rhat.m2,ess.m1,ess.m2,ess.m3,params.m1,params.m2,params.m3,pp.check.m1.calsample,pp.check.m1.uncalsample,pp.check.m2.calsample,pp.check.m2.uncalsample,pp.check.m3.calsample,pp.check.m3.uncalsample, file=here('R_images','mcmc_diagnostics_and_ppcheck.RData'))
+save(rhat.m1,rhat.m2,rhat.m3,ess.m1,ess.m2,ess.m3,params.m1,params.m2,params.m3,pp.check.m1.calsample,pp.check.m1.uncalsample,pp.check.m2.calsample,pp.check.m2.uncalsample,pp.check.m3.calsample,pp.check.m3.uncalsample, file=here('R_images','mcmc_diagnostics_and_ppcheck.RData'))
