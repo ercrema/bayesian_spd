@@ -1,0 +1,129 @@
+---
+title: "Supplementary Figures for A Bayesian approach for fitting and comparing demographic growth models of radiocarbon dates: a case study on the Jomon-Yayoi transition in Kyushu (Japan)"
+author: "E.Crema"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,results='hide',fig.align = 'center')
+library(here)
+library(rcarbon)
+library(nimbleCarbon)
+library(truncnorm)
+library(latex2exp)
+load(here('R_images','cleaned_data.RData'))
+load(here('R_images','mcmc.m1.samples.RData'))
+load(here('R_images','mcmc.m2.samples.RData'))
+load(here('R_images','mcmc.m3.samples.RData'))
+load(here('R_images','mcmc_diagnostics_and_ppcheck.RData'))
+load(here('R_images','experiment1_results.RData'))
+load(here('R_images','experiment2_results.RData'))
+load(here('R_images','experiment3a_results.RData'))
+load(here('R_images','experiment3b_results.RData'))
+load(here('R_images','experiment4_results.RData'))
+```
+
+
+
+
+```{r s1_figure,fig.width=6,fig.height=6,echo=FALSE}
+a = 3450
+b = 1850
+true.mu = 2800
+true.r1 = c(-0.001,-0.002,-0.003)
+true.r2 = c(0.001,0.002,0.003)
+params=expand.grid(r1=true.r1,r2=true.r2,mu=true.mu)
+
+par(mfcol=c(3,3),mar=c(4,4,3,2))
+for (i in 1:9)
+{
+  prdens = dDoubleExponentialGrowth(a:b,a=a,b=b,r1=params$r1[i],r2=params$r2[i],mu=params$mu[i],log=FALSE)
+  plotyears = BPtoBCAD(a:b)
+  plot(plotyears,prdens,type='n',ylim=c(0,0.0028),xlab='Years BC/AD',ylab='Probability Mass',main=paste('Setting ',i),font.main = 1,cex.main=1.2,axes=FALSE)
+  polygon(c(plotyears,rev(plotyears)),c(prdens,rep(0,length(a:b))),border=NA,col='darkgrey')
+  axis(2)
+  axis(1,at=c(-1500,-1000,-500,-1),labels=c(1500,1000,500,1))
+}
+```
+\begin{center}
+Figure S1: Growth Models for Experiment 4
+\end{center}
+\newpage
+
+```{r s2_figure,fig.width=7,fig.height=4,echo=FALSE}
+binsense(x=obs.caldates,y=obs.data$SiteID,calendar='BCAD',timeRange=c(a,b),h=c(0,50,100,200),verbose=FALSE)
+```
+\begin{center}
+Figure S2: Bin Sensitivity Analysis
+\end{center}
+\newpage
+
+```{r s3_figure,fig.width=7.5,fig.height=3.5,echo=FALSE}
+n = 500
+set.seed(123)
+prior.m1 = list(r=rexp(n,1/0.0004))
+prior.m2 = list(r1=rnorm(n,mean=0,sd=0.0004),r2=rexp(n,1/0.0004),mu=round(rtruncnorm(n,mean=2625,a=1850,b=3400)))
+prior.m3 = list(r1=rnorm(n,mean=0,sd=0.0004),r2=rexp(n,1/0.0004),mu=round(rtruncnorm(n,mean=2625,a=1850,b=3400)),k=rtruncnorm(n,mean=0.1,sd=0.1,a=0.0001,b=0.5))
+par(mfrow=c(1,3),mar=c(5,4,3,0.5))
+modelPlot(dExponentialGrowth,a=3450,b=1850,params = prior.m1,nsample = 500,alpha=0.05,main='m1',calendar='BCAD',ylim=c(0,0.0025))
+modelPlot(dDoubleExponentialGrowth,a=3450,b=1850,params = prior.m2,nsample = 500,alpha=0.05,main='m2',calendar='BCAD',ylim=c(0,0.0025))
+modelPlot(dExponentialLogisticGrowth,a=3450,b=1850,params = prior.m3,nsample = 500,alpha=0.05,main='m3',calendar='BCAD',ylim=c(0,0.0025))
+```
+\begin{center}
+Figure S3: Prior Predictive Checks
+\end{center}
+\newpage
+
+```{r, s4_figure,fig.width=6,fig.height=6,echo=FALSE}
+par(mfrow=c(3,1),mar=c(4,4,2,1))
+plot(as.numeric(mcmc.m1.samples$samples$chain1[,'r']),type='l',xlab='MCMC Sample',ylab=TeX('$r$'),main='Chain 1')
+plot(as.numeric(mcmc.m1.samples$samples$chain2[,'r']),type='l',xlab='MCMC Sample',ylab=TeX('$r$'),main='Chain 2')
+plot(as.numeric(mcmc.m1.samples$samples$chain3[,'r']),type='l',xlab='MCMC Sample',ylab=TeX('$r$'),main='Chain 3')
+```
+\begin{center}
+Figure S4: Model 1 Trace Plots
+\end{center}
+\newpage
+
+```{r, s5_figure,fig.width=7.5,fig.height=6,echo=FALSE}
+par(mfrow=c(3,3),mar=c(4,4,2,1))
+plot(as.numeric(mcmc.m2.samples$samples$chain1[,'r1']),type='l',xlab='MCMC Sample',ylab=TeX('$r_1$'),main='Chain 1')
+plot(as.numeric(mcmc.m2.samples$samples$chain2[,'r1']),type='l',xlab='MCMC Sample',ylab=TeX('$r_1$'),main='Chain 2')
+plot(as.numeric(mcmc.m2.samples$samples$chain3[,'r1']),type='l',xlab='MCMC Sample',ylab=TeX('$r_1$'),main='Chain 3')
+
+plot(as.numeric(mcmc.m2.samples$samples$chain1[,'r2']),type='l',xlab='MCMC Sample',ylab=TeX('$r_2$'),main='Chain 1')
+plot(as.numeric(mcmc.m2.samples$samples$chain2[,'r2']),type='l',xlab='MCMC Sample',ylab=TeX('$r_2$'),main='Chain 2')
+plot(as.numeric(mcmc.m2.samples$samples$chain3[,'r2']),type='l',xlab='MCMC Sample',ylab=TeX('$r_2$'),main='Chain 3')
+
+plot(BPtoBCAD(as.numeric(mcmc.m2.samples$samples$chain1[,'chp'])),type='l',xlab='MCMC Sample',ylab=TeX('$c$'),main='Chain 1')
+plot(BPtoBCAD(as.numeric(mcmc.m2.samples$samples$chain2[,'chp'])),type='l',xlab='MCMC Sample',ylab=TeX('$c$'),main='Chain 2')
+plot(BPtoBCAD(as.numeric(mcmc.m2.samples$samples$chain3[,'chp'])),type='l',xlab='MCMC Sample',ylab=TeX('$c$'),main='Chain 3')
+```
+\begin{center}
+Figure S5: Model 2 Trace Plots
+\end{center}
+\newpage
+
+```{r, s6_figure,fig.width=7.5,fig.height=7.5,echo=FALSE}
+par(mfrow=c(4,3),mar=c(4,4,2,1))
+plot(as.numeric(mcmc.m3.samples$samples$chain1[,'r1']),type='l',xlab='MCMC Sample',ylab=TeX('$r_1$'),main='Chain 1')
+plot(as.numeric(mcmc.m3.samples$samples$chain2[,'r1']),type='l',xlab='MCMC Sample',ylab=TeX('$r_1$'),main='Chain 2')
+plot(as.numeric(mcmc.m3.samples$samples$chain3[,'r1']),type='l',xlab='MCMC Sample',ylab=TeX('$r_1$'),main='Chain 3')
+
+plot(as.numeric(mcmc.m3.samples$samples$chain1[,'r2']),type='l',xlab='MCMC Sample',ylab=TeX('$r_2$'),main='Chain 1')
+plot(as.numeric(mcmc.m3.samples$samples$chain2[,'r2']),type='l',xlab='MCMC Sample',ylab=TeX('$r_2$'),main='Chain 2')
+plot(as.numeric(mcmc.m3.samples$samples$chain3[,'r2']),type='l',xlab='MCMC Sample',ylab=TeX('$r_2$'),main='Chain 3')
+
+plot(as.numeric(mcmc.m3.samples$samples$chain1[,'k']),type='l',xlab='MCMC Sample',ylab=TeX('$k$'),main='Chain 1')
+plot(as.numeric(mcmc.m3.samples$samples$chain2[,'k']),type='l',xlab='MCMC Sample',ylab=TeX('$k$'),main='Chain 2')
+plot(as.numeric(mcmc.m3.samples$samples$chain3[,'k']),type='l',xlab='MCMC Sample',ylab=TeX('$k$'),main='Chain 3')
+
+plot(BPtoBCAD(as.numeric(mcmc.m3.samples$samples$chain1[,'chp'])),type='l',xlab='MCMC Sample',ylab=TeX('$c$'),main='Chain 1')
+plot(BPtoBCAD(as.numeric(mcmc.m3.samples$samples$chain2[,'chp'])),type='l',xlab='MCMC Sample',ylab=TeX('$c$'),main='Chain 2')
+plot(BPtoBCAD(as.numeric(mcmc.m3.samples$samples$chain3[,'chp'])),type='l',xlab='MCMC Sample',ylab=TeX('$c$'),main='Chain 3')
+```
+\begin{center}
+Figure S6: Model 3 Trace Plots
+\end{center}
+\newpage
+
