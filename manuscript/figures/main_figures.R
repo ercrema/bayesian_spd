@@ -2,6 +2,7 @@
 library(here)
 library(rcarbon)
 library(nimbleCarbon)
+library(latex2exp)
 load(here('R_images','cleaned_data.RData'))
 load(here('R_images','mcmc.m1.samples.RData'))
 load(here('R_images','mcmc.m2.samples.RData'))
@@ -25,9 +26,26 @@ load(here('R_images','experiment4_results.RData'))
 
 ### Figure 5 Experiment 4 Results ####
 
-### Figure 6 Posterior Distribution of Parameters ####
-
-
+### Figure 6 Marginal Posterior Distribution of Parameters ####
+tiff(filename = here('manuscript','figures','figure6.tiff'),units = 'in',res=300,width = 7.5, height=4)
+par(mfrow=c(2,4),mar=c(3,1.5,2,1.5))
+postHPDplot(mcmc.m1.samples$samples$chain1[,'r'],xlab='',ylab='',show.hpd.val = FALSE,main=TeX('$m1:r$'),axes=F)
+axis(side=1,cex.axis=0.9,padj=-1);mtext(TeX('$r$'),side = 1,line=1.5,cex = 0.7)
+postHPDplot(mcmc.m2.samples$samples$chain1[,'r1'],xlab='',ylab='',show.hpd.val = FALSE,main=TeX('$m2:r_1$'),axes=F)
+axis(side=1,cex.axis=0.9,padj=-1);mtext(TeX('$r_1$'),side = 1,line=1.5,cex = 0.7)
+postHPDplot(mcmc.m2.samples$samples$chain1[,'r2'],xlab='',ylab='',show.hpd.val = FALSE,main=TeX('$m2:r_2$'),axes=F)
+axis(side=1,cex.axis=0.9,padj=-1);mtext(TeX('$r_2$'),side = 1,line=1.5,cex = 0.7)
+postHPDplot(abs(round(BPtoBCAD(mcmc.m2.samples$samples$chain1[,'chp']))),xlab='',ylab='',show.hpd.val = FALSE,main=TeX('$m2:c$'),axes=F,xlim=c(1000,400))
+axis(side=1,cex.axis=0.9,padj=-1);mtext(TeX('$BC$'),side = 1,line=1.5,cex = 0.7)
+postHPDplot(mcmc.m3.samples$samples$chain1[,'k'],xlab='',ylab='',show.hpd.val = FALSE,main=TeX('$m3:k$'),axes=F)
+axis(side=1,cex.axis=0.9,padj=-1);mtext(TeX('$k$'),side = 1,line=1.5,cex = 0.7)
+postHPDplot(mcmc.m3.samples$samples$chain1[,'r1'],xlab='',ylab='',show.hpd.val = FALSE,main=TeX('$m3:r_1$'),axes=F)
+axis(side=1,cex.axis=0.9,padj=-1);mtext(TeX('$r_1$'),side = 1,line=1.5,cex = 0.7)
+postHPDplot(mcmc.m3.samples$samples$chain1[,'r2'],xlab='',ylab='',show.hpd.val = FALSE,main=TeX('$m3:r_2$'),axes=F)
+axis(side=1,cex.axis=0.9,padj=-1);mtext(TeX('$r_2$'),side = 1,line=1.5,cex = 0.7)
+postHPDplot(abs(round(BPtoBCAD(mcmc.m3.samples$samples$chain1[,'chp']))),xlab='',ylab='',show.hpd.val = FALSE,main=TeX('$m3:c$'),axes=F,xlim=c(1000,400))
+axis(side=1,cex.axis=0.9,padj=-1);mtext(TeX('$BC$'),side = 1,line=1.5,cex = 0.7)
+dev.off()
 
 ### Figure 7 Fitted Models ####
 tiff(filename = here('manuscript','figures','figure7.tiff'),units = 'in',res=300,width = 7.5, height=3.4)
