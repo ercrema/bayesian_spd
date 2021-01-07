@@ -1,6 +1,7 @@
 # Load R Images & Packages ####
 library(here)
 library(rcarbon)
+library(coda)
 library(nimbleCarbon)
 
 load(here('R_images','mcmc_diagnostics_and_ppcheck.RData'))
@@ -13,6 +14,14 @@ table2 = data.frame(Model = c('m1','m2','m2','m2','m3','m3','m3','m3'),
                     Parameters = c('r','r1','r2','c','r1','r2','k','c'),
                     Rhat = c(round(rhat.m1$psrf[1,1],3),round(rhat.m2$psrf[c(2,3,1),1],3),round(rhat.m3$psrf[c(3,4,2,1),1],3)),
                     ESS = c(ess.m1[1],ess.m2[c(2,3,1)],ess.m3[c(3,4,2,1)]),
+                    Median = c(median(mcmc.m1.samples$samples$chain1[1,1]),
+                               median(mcmc.m2.samples$samples$chain1[2,1]),
+                               median(mcmc.m2.samples$samples$chain1[3,1]),
+                               abs(BPtoBCAD(round(median(mcmc.m2.samples$samples$chain1[1,2])))),
+                               median(mcmc.m3.samples$samples$chain1[3,1]),
+                               median(mcmc.m3.samples$samples$chain1[4,1]),
+                               median(mcmc.m3.samples$samples$chain1[2,1]),
+                               abs(BPtoBCAD(round(median(mcmc.m3.samples$samples$chain1[1,2]))))),
                     HPD90lower = c(HPDinterval(mcmc.m1.samples$samples,prob=0.90)$chain1[1,1],
                                    HPDinterval(mcmc.m2.samples$samples,prob=0.90)$chain1[2,1],
                                    HPDinterval(mcmc.m2.samples$samples,prob=0.90)$chain1[3,1],
