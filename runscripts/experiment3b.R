@@ -49,12 +49,12 @@ for (k in 1:length(ndates))
     estimated.r2[k,i]=median(mcmc.output$samples[,'r2'])
     estimated.mu[k,i]=median(mcmc.output$samples[,'chp'])
     
-    estimated.r1.90hpd.hi[k,i]=HPDinterval(mcmc(mcmc.output$samples[,'r1']),prob = 0.90)[1]
-    estimated.r1.90hpd.lo[k,i]=HPDinterval(mcmc(mcmc.output$samples[,'r1']),prob = 0.90)[2]
-    estimated.r2.90hpd.hi[k,i]=HPDinterval(mcmc(mcmc.output$samples[,'r2']),prob = 0.90)[1]
-    estimated.r2.90hpd.lo[k,i]=HPDinterval(mcmc(mcmc.output$samples[,'r2']),prob = 0.90)[2]
-    estimated.mu.90hpd.hi[k,i]=HPDinterval(mcmc(mcmc.output$samples[,'chp']),prob = 0.90)[1]
-    estimated.mu.90hpd.lo[k,i]=HPDinterval(mcmc(mcmc.output$samples[,'chp']),prob = 0.90)[2]
+    estimated.r1.90hpd.hi[k,i]=HPDinterval(mcmc(mcmc.output$samples[,'r1']),prob = 0.90)[2]
+    estimated.r1.90hpd.lo[k,i]=HPDinterval(mcmc(mcmc.output$samples[,'r1']),prob = 0.90)[1]
+    estimated.r2.90hpd.hi[k,i]=HPDinterval(mcmc(mcmc.output$samples[,'r2']),prob = 0.90)[2]
+    estimated.r2.90hpd.lo[k,i]=HPDinterval(mcmc(mcmc.output$samples[,'r2']),prob = 0.90)[1]
+    estimated.mu.90hpd.hi[k,i]=HPDinterval(mcmc(mcmc.output$samples[,'chp']),prob = 0.90)[2]
+    estimated.mu.90hpd.lo[k,i]=HPDinterval(mcmc(mcmc.output$samples[,'chp']),prob = 0.90)[1]
   }
 }
 
