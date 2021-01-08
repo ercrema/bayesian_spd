@@ -30,23 +30,29 @@ load(here('R_images','experiment1_results.RData'))
 plot(estimated.r[1,],pch=20,ylim=c(0,0.006),xlab='',ylab='',type='n',main='a',axes=F)
 axis(2)
 mtext('r',side=2,line=3,las=2)
-
-arrows(x0=1:20,y0=estimated.90hpd.hi[1,],y1=estimated.90hpd.lo[1,],col='black',length = 0.03,code = 3,angle = 90)
-points(estimated.r[1,],pch=20)
-arrows(x0=1:20,y0=estimated.90hpd.hi[2,],y1=estimated.90hpd.lo[2,],col='black',length = 0.03,code = 3,angle = 90)
-points(estimated.r[2,],pch=20)
-arrows(x0=1:20,y0=estimated.90hpd.hi[3,],y1=estimated.90hpd.lo[3,],col='black',length = 0.03,code = 3,angle = 90)
-points(estimated.r[3,],pch=20)
+col1 = col2 = col3 = rep('black',length(estimated.r[1,]))
+col1[which(estimated.90hpd.hi[1,]<true.r[1] | estimated.90hpd.lo[1,]>true.r[1])] ='darkorange'
+arrows(x0=1:20,y0=estimated.90hpd.hi[1,],y1=estimated.90hpd.lo[1,],col=col1,length = 0.03,code = 3,angle = 90)
+#points(estimated.r[1,],pch=20)
+col2[which(estimated.90hpd.hi[2,]<true.r[2] | estimated.90hpd.lo[2,]>true.r[2])] ='darkorange'
+arrows(x0=1:20,y0=estimated.90hpd.hi[2,],y1=estimated.90hpd.lo[2,],col=col2,length = 0.03,code = 3,angle = 90)
+#points(estimated.r[2,],pch=20)
+col3[which(estimated.90hpd.hi[3,]<true.r[3] | estimated.90hpd.lo[3,]>true.r[3])] ='darkorange'
+arrows(x0=1:20,y0=estimated.90hpd.hi[3,],y1=estimated.90hpd.lo[3,],col=col3,length = 0.03,code = 3,angle = 90)
+#points(estimated.r[3,],pch=20)
 
 abline(h=true.r[1],lty=2)
 abline(h=true.r[2],lty=2)
 abline(h=true.r[3],lty=2)
 ## Experiment 2
 load(here('R_images','experiment2_results.RData'))
-plot(c(1:20,22:41),c(estimated.r[1,],estimated.r[2,]),pch=20,ylab='',xlab='',axes=FALSE,ylim=c(0.000,0.006),main='b')
+plot(c(1:20,22:41),c(estimated.r[1,],estimated.r[2,]),pch=20,ylab='',xlab='',axes=FALSE,ylim=c(0.000,0.006),main='b',type='n')
 mtext('r',side=2,line=3,las=2)
-arrows(x0=1:20,y0=estimated.90hpd.hi[1,],y1=estimated.90hpd.lo[1,],col='black',length = 0.03,code = 3,angle = 90)
-arrows(x0=22:41,y0=estimated.90hpd.hi[2,],y1=estimated.90hpd.lo[2,],col='black',length = 0.03,code = 3,angle = 90)
+col1 = col2 = rep('black',length(estimated.r[1,]))
+col1[which(estimated.90hpd.hi[1,]<true.r | estimated.90hpd.lo[1,]>true.r)] ='darkorange'
+col2[which(estimated.90hpd.hi[2,]<true.r | estimated.90hpd.lo[2,]>true.r)] ='darkorange'
+arrows(x0=1:20,y0=estimated.90hpd.hi[1,],y1=estimated.90hpd.lo[1,],col=col1,length = 0.03,code = 3,angle = 90)
+arrows(x0=22:41,y0=estimated.90hpd.hi[2,],y1=estimated.90hpd.lo[2,],col=col2,length = 0.03,code = 3,angle = 90)
 abline(v=21)
 abline(h=true.r,lty=2)
 axis(2)
@@ -61,12 +67,17 @@ tiff(filename = here('manuscript','figures','figure3.tiff'),units = 'in',res=300
 load(here('R_images','experiment3a_results.RData'))
 plot(c(1:20,22:41,43:62),c(estimated.r[1,],estimated.r[2,],estimated.r[3,]),pch=20,ylab='',xlab='',axes=FALSE,ylim=c(0.002,0.009),type='n')
 mtext('r',side=2,line=3,las=2)
-arrows(x0=1:20,y0=estimated.90hpd.hi[1,],y1=estimated.90hpd.lo[1,],col='black',length = 0.02,code = 3,angle = 90)
-arrows(x0=22:41,y0=estimated.90hpd.hi[2,],y1=estimated.90hpd.lo[2,],col='black',length = 0.02,code = 3,angle = 90)
-arrows(x0=43:62,y0=estimated.90hpd.hi[3,],y1=estimated.90hpd.lo[3,],col='black',length = 0.02,code = 3,angle = 90)
-points(1:20,estimated.r[1,],pch=20)
-points(22:41,estimated.r[2,],pch=20)
-points(43:62,estimated.r[3,],pch=20)
+col1 = col2 = col3 = rep('black',length(estimated.r[1,]))
+col1[which(estimated.90hpd.hi[1,]<true.r | estimated.90hpd.lo[1,]>true.r)] ='darkorange'
+col2[which(estimated.90hpd.hi[2,]<true.r | estimated.90hpd.lo[2,]>true.r)] ='darkorange'
+col3[which(estimated.90hpd.hi[3,]<true.r | estimated.90hpd.lo[3,]>true.r)] ='darkorange'
+
+arrows(x0=1:20,y0=estimated.90hpd.hi[1,],y1=estimated.90hpd.lo[1,],col=col1,length = 0.02,code = 3,angle = 90)
+arrows(x0=22:41,y0=estimated.90hpd.hi[2,],y1=estimated.90hpd.lo[2,],col=col2,length = 0.02,code = 3,angle = 90)
+arrows(x0=43:62,y0=estimated.90hpd.hi[3,],y1=estimated.90hpd.lo[3,],col=col3,length = 0.02,code = 3,angle = 90)
+#points(1:20,estimated.r[1,],pch=20)
+#points(22:41,estimated.r[2,],pch=20)
+#points(43:62,estimated.r[3,],pch=20)
 abline(v=21,lty=3)
 abline(v=42,lty=3)
 abline(h=true.r,lty=2)
@@ -78,18 +89,23 @@ dev.off()
 tiff(filename = here('manuscript','figures','figure4.tiff'),units = 'in',res=300,width = 6, height=8)
 load(here('R_images','experiment3b_results.RData'))
 par(mfrow=c(3,1),mar=c(2,4,1,1))
-plot(c(1:20,22:41,43:62,64:83),c(estimated.r1[1,],estimated.r1[2,],estimated.r1[3,],estimated.r1[4,]),pch=20,ylab='',xlab='',axes=FALSE,ylim=c(-0.003,0.006),type='n')
+plot(c(1:20,22:41,43:62,64:83),c(estimated.r1[1,],estimated.r1[2,],estimated.r1[3,],estimated.r1[4,]),pch=20,ylab='',xlab='',axes=FALSE,ylim=c(-0.018,0.022),type='n')
 mtext(TeX('$r_1$'),side=2,line=2.5,las=2)
-arrows(x0=1:20,y0=estimated.r1.90hpd.hi[1,],y1=estimated.r1.90hpd.lo[1,],col='black',length = 0.02,code = 3,angle = 90)
-arrows(x0=22:41,y0=estimated.r1.90hpd.hi[2,],y1=estimated.r1.90hpd.lo[2,],col='black',length = 0.02,code = 3,angle = 90)
-arrows(x0=43:62,y0=estimated.r1.90hpd.hi[3,],y1=estimated.r1.90hpd.lo[3,],col='black',length = 0.02,code = 3,angle = 90)
-arrows(x0=22:41,y0=estimated.r1.90hpd.hi[2,],y1=estimated.r1.90hpd.lo[2,],col='black',length = 0.02,code = 3,angle = 90)
-arrows(x0=43:62,y0=estimated.r1.90hpd.hi[3,],y1=estimated.r1.90hpd.lo[3,],col='black',length = 0.02,code = 3,angle = 90)
-arrows(x0=64:83,y0=estimated.r1.90hpd.hi[4,],y1=estimated.r1.90hpd.lo[4,],col='black',length = 0.02,code = 3,angle = 90)
-points(1:20,estimated.r1[1,],pch=20)
-points(22:41,estimated.r1[2,],pch=20)
-points(64:83,estimated.r1[3,],pch=20)
-points(64:83,estimated.r1[4,],pch=20)
+
+col1 = col2 = col3 = col4 = rep('black',length(estimated.r1[1,]))
+col1[which(estimated.r1.90hpd.hi[1,]<true.r1 | estimated.r1.90hpd.lo[1,]>true.r1)] ='darkorange'
+col2[which(estimated.r1.90hpd.hi[2,]<true.r1 | estimated.r1.90hpd.lo[2,]>true.r1)] ='darkorange'
+col3[which(estimated.r1.90hpd.hi[3,]<true.r1 | estimated.r1.90hpd.lo[3,]>true.r1)] ='darkorange'
+col4[which(estimated.r1.90hpd.hi[4,]<true.r1 | estimated.r1.90hpd.lo[4,]>true.r1)] ='darkorange'
+
+arrows(x0=1:20,y0=estimated.r1.90hpd.hi[1,],y1=estimated.r1.90hpd.lo[1,],col=col1,length = 0.02,code = 3,angle = 90)
+arrows(x0=22:41,y0=estimated.r1.90hpd.hi[2,],y1=estimated.r1.90hpd.lo[2,],col=col2,length = 0.02,code = 3,angle = 90)
+arrows(x0=43:62,y0=estimated.r1.90hpd.hi[3,],y1=estimated.r1.90hpd.lo[3,],col=col3,length = 0.02,code = 3,angle = 90)
+arrows(x0=64:83,y0=estimated.r1.90hpd.hi[4,],y1=estimated.r1.90hpd.lo[4,],col=col4,length = 0.02,code = 3,angle = 90)
+# points(1:20,estimated.r1[1,],pch=20)
+# points(22:41,estimated.r1[2,],pch=20)
+# points(64:83,estimated.r1[3,],pch=20)
+# points(64:83,estimated.r1[4,],pch=20)
 abline(v=21,lty=3)
 abline(v=42,lty=3)
 abline(v=63,lty=3)
@@ -98,30 +114,44 @@ axis(side=2)
 
 plot(c(1:20,22:41,43:62,64:83),c(estimated.mu[1,],estimated.mu[2,],estimated.mu[3,],estimated.mu[4,]),pch=20,ylab='',xlab='',axes=FALSE,ylim=c(6000,4000),type='n')
 mtext(TeX('$c$'),side=2,line=2.5,las=2)
-arrows(x0=1:20,y0=estimated.mu.90hpd.hi[1,],y1=estimated.mu.90hpd.lo[1,],col='black',length = 0.02,code = 3,angle = 90)
-arrows(x0=22:41,y0=estimated.mu.90hpd.hi[2,],y1=estimated.mu.90hpd.lo[2,],col='black',length = 0.02,code = 3,angle = 90)
-arrows(x0=43:62,y0=estimated.mu.90hpd.hi[3,],y1=estimated.mu.90hpd.lo[3,],col='black',length = 0.02,code = 3,angle = 90)
-arrows(x0=64:83,y0=estimated.mu.90hpd.hi[4,],y1=estimated.mu.90hpd.lo[4,],col='black',length = 0.02,code = 3,angle = 90)
-points(1:20,estimated.mu[1,],pch=20)
-points(22:41,estimated.mu[2,],pch=20)
-points(43:62,estimated.mu[3,],pch=20)
-points(64:83,estimated.mu[4,],pch=20)
+
+col1 = col2 = col3 = col4 = rep('black',length(estimated.mu[1,]))
+col1[which(estimated.mu.90hpd.hi[1,]<true.mu | estimated.mu.90hpd.lo[1,]>true.mu)] ='darkorange'
+col2[which(estimated.mu.90hpd.hi[2,]<true.mu | estimated.mu.90hpd.lo[2,]>true.mu)] ='darkorange'
+col3[which(estimated.mu.90hpd.hi[3,]<true.mu | estimated.mu.90hpd.lo[3,]>true.mu)] ='darkorange'
+col4[which(estimated.mu.90hpd.hi[4,]<true.mu | estimated.mu.90hpd.lo[4,]>true.mu)] ='darkorange'
+
+arrows(x0=1:20,y0=estimated.mu.90hpd.hi[1,],y1=estimated.mu.90hpd.lo[1,],col=col1,length = 0.02,code = 3,angle = 90)
+arrows(x0=22:41,y0=estimated.mu.90hpd.hi[2,],y1=estimated.mu.90hpd.lo[2,],col=col2,length = 0.02,code = 3,angle = 90)
+arrows(x0=43:62,y0=estimated.mu.90hpd.hi[3,],y1=estimated.mu.90hpd.lo[3,],col=col3,length = 0.02,code = 3,angle = 90)
+arrows(x0=64:83,y0=estimated.mu.90hpd.hi[4,],y1=estimated.mu.90hpd.lo[4,],col=col4,length = 0.02,code = 3,angle = 90)
+# points(1:20,estimated.mu[1,],pch=20)
+# points(22:41,estimated.mu[2,],pch=20)
+# points(43:62,estimated.mu[3,],pch=20)
+# points(64:83,estimated.mu[4,],pch=20)
 abline(v=21,lty=3)
 abline(v=42,lty=3)
 abline(v=63,lty=3)
 abline(h=true.mu,lty=2)
 axis(side=2)
 
-plot(c(1:20,22:41,43:62,64:83),c(estimated.r2[1,],estimated.r2[2,],estimated.r2[3,],estimated.r2[4,]),pch=20,ylab='',xlab='',axes=FALSE,ylim=c(-0.005,0.003),type='n')
+plot(c(1:20,22:41,43:62,64:83),c(estimated.r2[1,],estimated.r2[2,],estimated.r2[3,],estimated.r2[4,]),pch=20,ylab='',xlab='',axes=FALSE,ylim=c(-0.021,0.019),type='n')
 mtext(TeX('$r_2$'),side=2,line=2.5,las=2)
-arrows(x0=1:20,y0=estimated.r2.90hpd.hi[1,],y1=estimated.r2.90hpd.lo[1,],col='black',length = 0.02,code = 3,angle = 90)
-arrows(x0=22:41,y0=estimated.r2.90hpd.hi[2,],y1=estimated.r2.90hpd.lo[2,],col='black',length = 0.02,code = 3,angle = 90)
-arrows(x0=43:62,y0=estimated.r2.90hpd.hi[3,],y1=estimated.r2.90hpd.lo[3,],col='black',length = 0.02,code = 3,angle = 90)
-arrows(x0=64:83,y0=estimated.r2.90hpd.hi[4,],y1=estimated.r2.90hpd.lo[4,],col='black',length = 0.02,code = 3,angle = 90)
-points(1:20,estimated.r2[1,],pch=20)
-points(22:41,estimated.r2[2,],pch=20)
-points(43:62,estimated.r2[3,],pch=20)
-points(64:83,estimated.r2[4,],pch=20)
+
+col1 = col2 = col3 = col4 = rep('black',length(estimated.r2[1,]))
+col1[which(estimated.r2.90hpd.hi[1,]<true.r2 | estimated.r2.90hpd.lo[1,]>true.r2)] ='darkorange'
+col2[which(estimated.r2.90hpd.hi[2,]<true.r2 | estimated.r2.90hpd.lo[2,]>true.r2)] ='darkorange'
+col3[which(estimated.r2.90hpd.hi[3,]<true.r2 | estimated.r2.90hpd.lo[3,]>true.r2)] ='darkorange'
+col4[which(estimated.r2.90hpd.hi[4,]<true.r2 | estimated.r2.90hpd.lo[4,]>true.r2)] ='darkorange'
+
+arrows(x0=1:20,y0=estimated.r2.90hpd.hi[1,],y1=estimated.r2.90hpd.lo[1,],col=col1,length = 0.02,code = 3,angle = 90)
+arrows(x0=22:41,y0=estimated.r2.90hpd.hi[2,],y1=estimated.r2.90hpd.lo[2,],col=col2,length = 0.02,code = 3,angle = 90)
+arrows(x0=43:62,y0=estimated.r2.90hpd.hi[3,],y1=estimated.r2.90hpd.lo[3,],col=col3,length = 0.02,code = 3,angle = 90)
+arrows(x0=64:83,y0=estimated.r2.90hpd.hi[4,],y1=estimated.r2.90hpd.lo[4,],col=col4,length = 0.02,code = 3,angle = 90)
+# points(1:20,estimated.r2[1,],pch=20)
+# points(22:41,estimated.r2[2,],pch=20)
+# points(43:62,estimated.r2[3,],pch=20)
+# points(64:83,estimated.r2[4,],pch=20)
 abline(v=21,lty=3)
 abline(v=42,lty=3)
 abline(v=63,lty=3)
