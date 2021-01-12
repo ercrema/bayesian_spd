@@ -3,8 +3,6 @@ library(here)
 library(rcarbon)
 library(nimbleCarbon)
 library(latex2exp)
-library(choroplethrAdmin1)
-library(choroplethr)
 library(dplyr)
 
 load(here('R_images','cleaned_data.RData'))
@@ -17,9 +15,10 @@ load(here('R_images','mcmc_diagnostics_and_ppcheck.RData'))
 
 ### Figure 1 (Observed SPD) ####
 tiff(filename = here('manuscript','figures','figure1.tiff'),units = 'in',res=300,width = 6, height=4,pointsize = 8)
-obs.spd = spd(obs.caldates,timeRange=c(3400,1850),spdnormalised = T,ylim=c(0,0.004))
-plot(obs.spd,calendar='BCAD',runm=100)
+obs.spd = spd(obs.caldates,timeRange=c(3400,1850),spdnormalised = T)
+plot(obs.spd,calendar='BCAD',runm=100,ylim=c(0,0.002))
 lines(BPtoBCAD(obs.spd$grid$calBP),obs.spd$grid$PrDens,type='l',lty=2)
+legend('topleft',legend=c('SPD','Rolling Mean (100yrs)'),col=c('lightgrey','black'),lwd=c(8,1),lty=c(1,2))
 dev.off()
 
 ### Figure 2 Experiment 1 & 2 Results ####
