@@ -18,6 +18,7 @@ library(mapdata)
 library(coda)
 library(latex2exp)
 library(dplyr)
+library(oxcAAR)
 load(here('R_images','cleaned_data.RData'))
 load(here('R_images','mcmc.m1.samples.RData'))
 load(here('R_images','mcmc.m2.samples.RData'))
@@ -172,7 +173,6 @@ Figure S6: Model 3 Trace Plots
 
 ```{r, s_7 Temporal relation,echo=FALSE,fig.width=7,fig.height=7,echo=FALSE,message=FALSE,warning=FALSE}
 # Re-analyse charred rice dates from Miyamoto 2018
-library(oxcAAR)
 quickSetupOxcal()
 oxcalScript = 'Options()
  {
