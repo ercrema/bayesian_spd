@@ -3,9 +3,9 @@ library(rcarbon)
 library(coda)
 library(here)
 
-a = 3450
+a = 3400
 b = 1850
-ndates = 266 #The observed number of dates in the case study
+ndates = 288 #The observed number of dates in the case study
 data("intcal20")
 nsim = 20
 true.mu = 2800
@@ -36,8 +36,8 @@ for (k in 1:nrow(params))
         sd[i] <- (sigma[i]^2+sigmaCurve[i]^2)^(1/2);
         X[i] ~ dnorm(mean=mu[i],sd=sd[i]);
       }
-      r1 ~ dnorm(0,sd=0.1);
-      r2 ~ dnorm(0,sd=0.1);
+      r1 ~ dnorm(0,sd=0.01);
+      r2 ~ dnorm(0,sd=0.01);
       chp ~ dunif(b+1,a-1);
       changept <- round(chp);
     })  
