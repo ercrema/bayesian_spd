@@ -38,7 +38,7 @@ c14samples=table(obs.sites.dates$Prefecture)
 basemap <- getMap(resolution = "high")
 layout(matrix(c(1,1,1,2),2,2),height=c(0.6,0.4),widths = c(0.6,0.4))
   
-plot(basemap, col = "lightgrey", border = NA,xlim = c(129,133),ylim = c(30.9,34.3))
+plot(basemap, col = "lightgrey", border = NA,xlim = c(129,133),ylim = c(30.9,34.3),xlab='Longitude',ylab='Latitude')
 
 latlong = "+init=epsg:4326"
 map("japan","oita",add=TRUE,col="white",lwd=1.5)
@@ -70,9 +70,7 @@ map("japan","nagasaki",add=TRUE,col="black",fill=TRUE)
 map("japan","saga",add=TRUE,col="black",fill=TRUE)
 box()
 ```
-\begin{center}
 Figure S1: Geographic distribution of radiocarbon dates
-\end{center}
 \newpage
 
 
@@ -95,9 +93,7 @@ for (i in 1:9)
   axis(1,at=c(-1500,-1000,-500,-1),labels=c(1500,1000,500,1))
 }
 ```
-\begin{center}
 Figure S2: Growth Models for Experiment 4
-\end{center}
 \newpage
 
 
@@ -112,9 +108,7 @@ modelPlot(dExponentialGrowth,a=3450,b=1850,params = prior.m1,nsample = 500,alpha
 modelPlot(dDoubleExponentialGrowth,a=3450,b=1850,params = prior.m2,nsample = 500,alpha=0.05,main='m2',calendar='BCAD',ylim=c(0,0.0025))
 modelPlot(dExponentialLogisticGrowth,a=3450,b=1850,params = prior.m3,nsample = 500,alpha=0.05,main='m3',calendar='BCAD',ylim=c(0,0.0025))
 ```
-\begin{center}
 Figure S3: Prior Predictive Checks
-\end{center}
 \newpage
 
 ```{r, s4_figure model 1 trace plot,fig.width=6,fig.height=6,echo=FALSE}
@@ -123,9 +117,7 @@ plot(as.numeric(mcmc.m1.samples$samples$chain1[,'r']),type='l',xlab='MCMC Sample
 plot(as.numeric(mcmc.m1.samples$samples$chain2[,'r']),type='l',xlab='MCMC Sample',ylab=TeX('$r$'),main='Chain 2')
 plot(as.numeric(mcmc.m1.samples$samples$chain3[,'r']),type='l',xlab='MCMC Sample',ylab=TeX('$r$'),main='Chain 3')
 ```
-\begin{center}
 Figure S4: Model 1 Trace Plots
-\end{center}
 \newpage
 
 ```{r, s5_figure Model 2 Trace Plots,fig.width=7.5,fig.height=6,echo=FALSE}
@@ -142,9 +134,7 @@ plot(BPtoBCAD(as.numeric(mcmc.m2.samples$samples$chain1[,'chp'])),type='l',xlab=
 plot(BPtoBCAD(as.numeric(mcmc.m2.samples$samples$chain2[,'chp'])),type='l',xlab='MCMC Sample',ylab=TeX('$c$'),main='Chain 2')
 plot(BPtoBCAD(as.numeric(mcmc.m2.samples$samples$chain3[,'chp'])),type='l',xlab='MCMC Sample',ylab=TeX('$c$'),main='Chain 3')
 ```
-\begin{center}
 Figure S5: Model 2 Trace Plots
-\end{center}
 \newpage
 
 ```{r, s6_figure Model 3 Trace Plots,fig.width=7.5,fig.height=7.5,echo=FALSE}
@@ -165,9 +155,7 @@ plot(BPtoBCAD(as.numeric(mcmc.m3.samples$samples$chain1[,'chp'])),type='l',xlab=
 plot(BPtoBCAD(as.numeric(mcmc.m3.samples$samples$chain2[,'chp'])),type='l',xlab='MCMC Sample',ylab=TeX('$c$'),main='Chain 2')
 plot(BPtoBCAD(as.numeric(mcmc.m3.samples$samples$chain3[,'chp'])),type='l',xlab='MCMC Sample',ylab=TeX('$c$'),main='Chain 3')
 ```
-\begin{center}
 Figure S6: Model 3 Trace Plots
-\end{center}
 \newpage
 
 
@@ -226,7 +214,7 @@ abline(v=0,lty=2,lwd=1.5)
 axis(1,at=seq(-1000,1000,100),labels=abs(seq(-1000,1000,100)))
 axis(2)
 box()
-text(x=300,y=median(par('usr')[3:4]),label=paste('Changepoint after\n P=',round(sum(m2_diff>0)/length(m2_diff),2)),cex=0.8)
+text(x=350,y=median(par('usr')[3:4]),label=paste('Changepoint after\n P=',round(sum(m2_diff>0)/length(m2_diff),2)),cex=0.8)
 text(x=-300,y=median(par('usr')[3:4]),label=paste('Changepoint before\n P=',round(sum(m2_diff<0)/length(m2_diff),2)),cex=0.8)
 # m3
 left = c(HPDinterval(mcmc(m3_diff),prob = 0.90)[1],0)
@@ -249,10 +237,8 @@ abline(v=0,lty=2,lwd=1.5)
 axis(1,at=seq(-1000,1000,100),labels=abs(seq(-1000,1000,100)))
 axis(2)
 box()
-text(x=300,y=median(par('usr')[3:4]),label=paste('Changepoint after\n P=',round(sum(m3_diff>0)/length(m3_diff),2)),cex=0.8)
+text(x=350,y=median(par('usr')[3:4]),label=paste('Changepoint after\n P=',round(sum(m3_diff>0)/length(m3_diff),2)),cex=0.8)
 text(x=-300,y=median(par('usr')[3:4]),label=paste('Changepoint before\n P=',round(sum(m3_diff<0)/length(m3_diff),2)),cex=0.8)
 ```
-\begin{center}
-Figure S7: Time difference between earliest dated evidence of charred rice in Kyushu (from Miyamoto 2018) and inferred change-point in growth rate for models 2 and 3. Differences were computed by comparing 15,000 random pairs of posterior samples from the two events. The highlighted region represents the 90% HPD density interval. Rice dates were calibrated using IntCal20 and combined using the R_Combine function in OxCal (via the OxCAAR R package).
-\end{center}
-\newpage
+
+Figure S7: Time difference between earliest dated evidence of charred rice in Kyushu (from Miyamoto 2018) and inferred change-point in growth rate for models 2 and 3. Differences were computed by comparing 15,000 random pairs of posterior samples from the two events. The highlighted region represents the 90\% HPD density interval. Rice dates were calibrated using IntCal20 and combined using the R_Combine function in OxCal (via the OxCAAR R package).
