@@ -250,9 +250,9 @@ modelPlot(dDoubleExponentialGrowth,a=3450,b=1850,params = params.m2,nsample = 50
 modelPlot(dExponentialLogisticGrowth,a=3450,b=1850,params = params.m3,nsample = 500,alpha=0.01,main='m3',ylim=c(0,0.0025),calendar='BCAD')
 dev.off()
 
-### Figure 8 Posterior Predictive Checks ####
+### Figure 9 Posterior Predictive Checks ####
 
-tiff(filename = here('manuscript','figures','figure8.tiff'),units = 'in',res=300,width = 5, height=6)
+tiff(filename = here('manuscript','figures','figure9.tiff'),units = 'in',res=300,width = 5, height=6)
 par(mfrow=c(3,1),mar=c(5,4,2,0.5))
 plot(pp.check.m1.calsample,interval = 0.95,main='model m1',calendar='BCAD')
 plot(pp.check.m2.calsample,interval = 0.95,main='model m2',calendar='BCAD')
