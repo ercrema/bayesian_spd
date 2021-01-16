@@ -21,8 +21,29 @@ lines(BPtoBCAD(obs.spd$grid$calBP),obs.spd$grid$PrDens,type='l',lty=2)
 legend('topleft',legend=c('SPD','Rolling Mean (100yrs)'),col=c('lightgrey','black'),lwd=c(8,1),lty=c(1,2))
 dev.off()
 
-### Figure 2 Experiment 1 & 2 Results ####
-tiff(filename = here('manuscript','figures','figure2.tiff'),units = 'in',res=300,width = 5, height=5,pointsize = 8)
+### Figure 2 Growth Models ####
+tiff(filename = here('manuscript','figures','figure2.tiff'),units = 'in',res=300,width = 7.5, height=3,pointsize = 8)
+par(mfrow=c(1,3))
+plot(320:180,dExponentialGrowth(320:180,a=300,b=200,r=0.02,log=FALSE),xlim=c(320,180),type='h',xlab='Cal BP',ylab='Probability Mass',axes=FALSE,lwd=0.2,cex.lab=1.3,cex.main=1.5,main='m1: Exponential')
+axis(1,at=c(300,200),labels=c('a','b'),cex.axis=1.5)
+text(x=250,y=0.01,TeX('$r$'),cex=1.5)
+box()
+plot(320:180,dDoubleExponentialGrowth(320:180,a=300,b=200,mu=265,r1=0.02,r2=-0.01,log=FALSE),xlim=c(320,180),type='h',xlab='Cal BP',ylab='Probability Mass',axes=FALSE,lwd=0.2,cex.lab=1.3,cex.main=1.5,main='m2 Double-Exponential')
+axis(1,at=c(300,265,200),labels=c('a','c','b'),cex.axis=1.5)
+text(x=290,y=0.01,TeX('$r_1$'),cex=1.5)
+text(x=227,y=0.01,TeX('$r_2$'),cex=1.5)
+box()
+plot(320:180,dExponentialLogisticGrowth(320:180,a=300,b=200,mu=270,k=0.1,r1=-0.02,r2=0.12,log=FALSE),xlim=c(320,180),type='h',xlab='Cal BP',ylab='Probability Mass',axes=FALSE,lwd=0.2,cex.lab=1.3,cex.main=1.5,main='m3 Exponential-Logistic')
+axis(1,at=c(300,270,200),labels=c('a','c','b'),cex.axis=1.5)
+axis(2,at=dExponentialLogisticGrowth(300,a=300,b=200,mu=270,k=0.1,r1=-0.02,r2=0.12,log=FALSE),labels='k',las=2,cex.axis=1.5)
+text(x=287,y=0.0021,TeX('$r_1$'),cex=1.5)
+text(x=254,y=0.013,TeX('$r_2$'),cex=1.5)
+box()
+dev.off()
+
+
+### Figure 3 Experiment 1 & 2 Results ####
+tiff(filename = here('manuscript','figures','figure3.tiff'),units = 'in',res=300,width = 5, height=5,pointsize = 8)
 par(mfrow=c(2,1),mar=c(2,3,2,1))
 ## Experiment 1
 load(here('R_images','experiment1_results.RData'))
@@ -61,8 +82,8 @@ dev.off()
 
 
 
-### Figure 3 Experiment 3a Results ####
-tiff(filename = here('manuscript','figures','figure3.tiff'),units = 'in',res=300,width = 6.2, height=3.5)
+### Figure 4 Experiment 3a Results ####
+tiff(filename = here('manuscript','figures','figure4.tiff'),units = 'in',res=300,width = 6.2, height=3.5)
 load(here('R_images','experiment3a_results.RData'))
 plot(c(1:20,22:41,43:62),c(estimated.r[1,],estimated.r[2,],estimated.r[3,]),pch=20,ylab='',xlab='',axes=FALSE,ylim=c(0.002,0.009),type='n')
 mtext('r',side=2,line=3,las=2)
@@ -84,8 +105,8 @@ axis(2)
 axis(1,at=c(10,31,52),labels=c('n=250','n=100','n=50'),tick=FALSE,cex.axis=1)
 dev.off()
 
-### Figure 4 Experiment 3b Results ####
-tiff(filename = here('manuscript','figures','figure4.tiff'),units = 'in',res=300,width = 6, height=8)
+### Figure 5 Experiment 3b Results ####
+tiff(filename = here('manuscript','figures','figure5.tiff'),units = 'in',res=300,width = 6, height=8)
 load(here('R_images','experiment3b_results.RData'))
 par(mfrow=c(3,1),mar=c(2,4,1,1))
 plot(c(1:20,22:41,43:62,64:83),c(estimated.r1[1,],estimated.r1[2,],estimated.r1[3,],estimated.r1[4,]),pch=20,ylab='',xlab='',axes=FALSE,ylim=c(-0.018,0.022),type='n')
@@ -161,9 +182,9 @@ dev.off()
 
 
 
-### Figure 5 Experiment 4 Results ####
+### Figure 6 Experiment 4 Results ####
 load(here('R_images','experiment4_results.RData'))
-tiff(filename = here('manuscript','figures','figure5.tiff'),units = 'in',res=300,width = 7.5, height=7.5)
+tiff(filename = here('manuscript','figures','figure6.tiff'),units = 'in',res=300,width = 7.5, height=7.5)
 layout(matrix(1:36,12,3),heights=c(rep(c(0.1,0.3,0.3,0.3),3)),widths = c(1,1,1))
 
 for (i in 1:9)
@@ -199,8 +220,8 @@ for (i in 1:9)
 }
 dev.off()
 
-### Figure 6 Marginal Posterior Distribution of Parameters ####
-tiff(filename = here('manuscript','figures','figure6.tiff'),units = 'in',res=300,width = 7.5, height=4)
+### Figure 7 Marginal Posterior Distribution of Parameters ####
+tiff(filename = here('manuscript','figures','figure7.tiff'),units = 'in',res=300,width = 7.5, height=4)
 par(mfrow=c(2,4),mar=c(3,1.5,2,1.5))
 postHPDplot(mcmc.m1.samples$samples$chain1[,'r'],xlab='',ylab='',show.hpd.val = FALSE,main=TeX('$m1:r$'),axes=F)
 axis(side=1,cex.axis=0.9,padj=-1);mtext(TeX('$r$'),side = 1,line=1.5,cex = 0.7)
@@ -220,8 +241,8 @@ postHPDplot(abs(round(BPtoBCAD(mcmc.m3.samples$samples$chain1[,'chp']))),xlab=''
 axis(side=1,cex.axis=0.9,padj=-1);mtext(TeX('$BC$'),side = 1,line=1.5,cex = 0.7)
 dev.off()
 
-### Figure 7 Fitted Models ####
-tiff(filename = here('manuscript','figures','figure7.tiff'),units = 'in',res=300,width = 7.5, height=3.4)
+### Figure 8 Fitted Models ####
+tiff(filename = here('manuscript','figures','figure8.tiff'),units = 'in',res=300,width = 7.5, height=3.4)
 par(mfrow=c(1,3),mar=c(5,4,3,0.5))
 set.seed(123)
 modelPlot(dExponentialGrowth,a=3450,b=1850,params = params.m1,nsample = 500,alpha=0.01,main='m1',ylim=c(0,0.0025),calendar='BCAD')
