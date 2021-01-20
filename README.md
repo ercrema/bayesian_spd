@@ -17,7 +17,7 @@ Scripts for the Bayesian Analyses of three growth models are contained in the fi
 Scripts for generating simulated data for each experiment as well as the associated Bayesian analyses are contained in the files: [experiment1.R](./runscripts/experiment1.R), [experiment2.R](./runscripts/experiment2.R), [experiment3a.R](./runscripts/experiment3a.R), [experiment3b.R](./runscripts/experiment3b.R), and [experiment4.R](./runscripts/experiment4.R). Results of each experiment are stored in the R image files: [experiment1_results.RData](./R_images/experiment1_results.RData), [experiment2_results.RData](./R_images/experiment2_results.RData), [experiment3a_results.RData](./R_images/experiment3a_results.RData), [experiment3b_results.RData](./R_images/experiment3b_results.RData), and [experiment4_results.RData](./R_images/experiment4_results.RData).
 
 ## Figures, Tables, and Supplementary Materials
-Figures and raw data required for relevant tables, as well as R scripts required for generating them are contained in relevant sub-directory inside [manuscript](./manuscript). Supplementary figures are contained in the document [supplementary_figures.pdf](./manuscript/supplementary_figures/supplementary_figures.pdf) which is rendered from the Rmarkdown file [supplementary_figures.Rmd](./manuscript/supplementary_figures/supplementary_figures.Rmd). All figures and tables require the analyses output stored in 
+Figures and raw data required for relevant tables, as well as R scripts required for generating them are contained in relevant sub-directory inside [manuscript](./manuscript). All figures and tables require the analyses output stored in 
 the [R_images](./R_images) directory.
 
 # File Structure
@@ -39,13 +39,21 @@ the [R_images](./R_images) directory.
 │   │   ├── figure2.tiff
 │   │   ├── figure3.tiff
 │   │   ├── figure4.tiff
+│   │   ├── figure5.tiff
 │   │   ├── figure6.tiff
 │   │   ├── figure7.tiff
 │   │   ├── figure8.tiff
+│   │   ├── figure9.tiff
 │   │   └── main_figures.R
 │   ├── supplementary_figures
-│   │   ├── supplementary_figures.pdf
-│   │   └── supplementary_figures.Rmd
+│   │   ├── figureS1.pdf
+│   │   ├── figureS2.pdf
+│   │   ├── figureS3.pdf
+│   │   ├── figureS4.pdf
+│   │   ├── figureS5.pdf
+│   │   ├── figureS6.pdf
+│   │   ├── figureS7.pdf
+│   │   └── supplementary_figures.R
 │   └── tables
 │       ├── main_tables.R
 │       ├── table2.csv
@@ -108,7 +116,7 @@ loaded via a namespace (and not attached):
 The `nimbleCarbon` package includes the key function for all Bayesian analysis carried out in the manuscript. The package is currently on a private repo and the following command is required for its installation:
 ```
 library(devtools)
-install_github('ercrema/nimbleCarbon',auth_token='58fd474f4001e364c30a642e5013972e5a2fb7ae')
+install_github('ercrema/nimbleCarbon@v0.1-beta.0')
 ```
 
 # Funding
