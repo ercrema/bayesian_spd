@@ -106,7 +106,7 @@ axis(1,at=c(10,31,52),labels=c('n=250','n=100','n=50'),tick=FALSE,cex.axis=1)
 dev.off()
 
 ### Figure 5 Experiment 3b Results ####
-tiff(filename = here('manuscript','figures','figure5.tiff'),units = 'in',res=300,width = 6, height=8)
+tiff(filename = here('manuscript','figures','figure5.tiff'),units = 'in',res=300,width = 5, height=6.5)
 load(here('R_images','experiment3b_results.RData'))
 par(mfrow=c(3,1),mar=c(2,4,1,1))
 plot(c(1:20,22:41,43:62,64:83),c(estimated.r1[1,],estimated.r1[2,],estimated.r1[3,],estimated.r1[4,]),pch=20,ylab='',xlab='',axes=FALSE,ylim=c(-0.018,0.022),type='n')
@@ -184,7 +184,7 @@ dev.off()
 
 ### Figure 6 Experiment 4 Results ####
 load(here('R_images','experiment4_results.RData'))
-tiff(filename = here('manuscript','figures','figure6.tiff'),units = 'in',res=300,width = 7.5, height=7.5)
+tiff(filename = here('manuscript','figures','figure6.tiff'),units = 'in',res=300,width = 6, height=6)
 layout(matrix(1:36,12,3),heights=c(rep(c(0.1,0.3,0.3,0.3),3)),widths = c(1,1,1))
 
 for (i in 1:9)
