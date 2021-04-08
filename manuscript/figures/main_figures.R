@@ -44,7 +44,7 @@ dev.off()
 
 ### Figure 3 Experiment 1 & 2 Results ####
 tiff(filename = here('manuscript','figures','figure3.tiff'),units = 'in',res=300,width = 5, height=5,pointsize = 8)
-par(mfrow=c(2,1),mar=c(2,3,2,1))
+par(mfrow=c(2,1),mar=c(2,3.5,2,1))
 ## Experiment 1
 load(here('R_images','experiment1_results.RData'))
 plot(estimated.r[1,],pch=20,ylim=c(0,0.006),xlab='',ylab='',type='n',main='a',axes=F)
@@ -184,7 +184,7 @@ dev.off()
 
 ### Figure 6 Experiment 4 Results ####
 load(here('R_images','experiment4_results.RData'))
-tiff(filename = here('manuscript','figures','figure6.tiff'),units = 'in',res=300,width = 6, height=6)
+tiff(filename = here('manuscript','figures','figure6.tiff'),units = 'in',res=300,width = 6, height=6,pointsize=10)
 layout(matrix(1:36,12,3),heights=c(rep(c(0.1,0.3,0.3,0.3),3)),widths = c(1,1,1))
 
 for (i in 1:9)
@@ -197,7 +197,7 @@ for (i in 1:9)
   col = rep('black',20)
   col[which(params[i,'r1']>estimated.r1.90hpd.hi[i,]|params[i,'r1']<estimated.r1.90hpd.lo[i,])]='darkorange'
   plot(estimated.r1[i,],type='n',ylim=c(params[i,'r1']-0.004,params[i,'r1']+0.004),xlab='',ylab='',axes=FALSE);
-  axis(2,padj=1,tck=-0.07,cex.axis=0.7)
+  axis(2,padj=1,tck=-0.07,cex.axis=0.6)
   mtext(TeX('$r_1$'),2,line=2,las=2,cex=0.8)
   abline(h=params[i,'r1'],lty=2)
   arrows(x0=1:20,y0=estimated.r1.90hpd.hi[i,],y1=estimated.r1.90hpd.lo[i,],col=col,length = 0.015,code = 3,angle = 90)
@@ -205,7 +205,7 @@ for (i in 1:9)
   col = rep('black',20)
   col[which(2800>estimated.mu.90hpd.hi[i,]|2800<estimated.mu.90hpd.lo[i,])]='darkorange'
   plot(estimated.mu[i,],type='n',ylim=c(3450,1850),xlab='',ylab='',axes=FALSE);
-  axis(2,padj=1,tck=-0.07,cex.axis=0.7)
+  axis(2,padj=1,tck=-0.07,cex.axis=0.6)
   mtext(TeX('$c$'),2,line=2,las=2,cex=0.8)
   abline(h=2800,lty=2)
   arrows(x0=1:20,y0=estimated.mu.90hpd.hi[i,],y1=estimated.mu.90hpd.lo[i,],col=col,length = 0.015,code = 3,angle = 90)
@@ -213,7 +213,7 @@ for (i in 1:9)
   col = rep('black',20)
   col[which(params[i,'r2']>estimated.r2.90hpd.hi[i,]|params[i,'r2']<estimated.r2.90hpd.lo[i,])]='darkorange'
   plot(estimated.r2[i,],type='n',ylim=c(params[i,'r2']-0.004,params[i,'r2']+0.004),xlab='',ylab='',axes=FALSE);
-  axis(2,padj=1,tck=-0.07,cex.axis=0.7)
+  axis(2,padj=1,tck=-0.07,cex.axis=0.6)
   mtext(TeX('$r_2$'),2,line=2,las=2,cex=0.8)
   abline(h=params[i,'r2'],lty=2)
   arrows(x0=1:20,y0=estimated.r2.90hpd.hi[i,],y1=estimated.r2.90hpd.lo[i,],col='black',length = 0.015,code = 3,angle = 90)
