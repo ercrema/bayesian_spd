@@ -118,11 +118,14 @@ loaded via a namespace (and not attached):
 ```
 
 ### Note
-The `nimbleCarbon` package includes the key function for all Bayesian analysis carried out in the manuscript. The package is currently on a private repo and the following command is required for its installation:
+The `nimbleCarbon` package includes the key function for all Bayesian analysis carried out in the manuscript. The package is currently on a github repo and the following command is required for the installation of a version required to reproduce the results and figures:
+
 ```
 library(devtools)
-install_github('ercrema/nimbleCarbon@v0.1-beta.0')
+install_github('ercrema/nimbleCarbon@4706e8f')
 ```
+
+
 
 # Funding
 This research was funded by the ERC grant _Demography, Cultural Change, and the Diffusion of Rice and Millets during the Jomon-Yayoi transition in prehistoric Japan (ENCOUNTER)_ (Project N. 801953, PI: Enrico Crema) and by a Philip Leverhulme Prize in archaeology awarded to Enrico Crema.
