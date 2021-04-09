@@ -90,34 +90,42 @@ attached base packages:
 [1] stats     graphics  grDevices utils     methods   base     
 
 other attached packages:
- [1] oxcAAR_1.0.0       coda_0.19-4        mapdata_2.3.0      GISTools_0.7-4     rgeos_0.5-3       
- [6] MASS_7.3-51.6      RColorBrewer_1.1-2 maps_3.3.0         maptools_1.0-1     rworldmap_1.3-6   
-[11] sp_1.4-4           truncnorm_1.0-8    dplyr_1.0.2        latex2exp_0.4.0    nimbleCarbon_0.1.0
-[16] nimble_0.10.1      rcarbon_1.4.1      here_0.1          
+ [1] oxcAAR_1.0.0        dplyr_1.0.2         latex2exp_0.4.0     coda_0.19-4        
+ [5] sp_1.4-5            rnaturalearth_0.2.0 truncnorm_1.0-8     nimbleCarbon_0.1.0 
+ [9] nimble_0.10.1       rcarbon_1.4.2       here_0.1           
 
 loaded via a namespace (and not attached):
- [1] spam_2.5-1            tidyselect_1.1.0      xfun_0.19             purrr_0.3.4          
- [5] splines_4.0.3         lattice_0.20-41       spatstat.utils_1.17-0 vctrs_0.3.5          
- [9] generics_0.1.0        doSNOW_1.0.19         htmltools_0.5.0       snow_0.4-3           
-[13] yaml_2.2.1            mgcv_1.8-31           rlang_0.4.8           startup_0.14.1       
-[17] spatstat.data_1.7-0   pillar_1.4.7          foreign_0.8-80        spatstat_1.64-1      
-[21] glue_1.4.2            foreach_1.5.1         lifecycle_0.2.0       stringr_1.4.0        
-[25] dotCall64_1.0-0       fields_10.3           codetools_0.2-16      evaluate_0.14        
-[29] knitr_1.30            parallel_4.0.3        tensor_1.5            jsonlite_1.7.1       
-[33] abind_1.4-5           deldir_0.2-3          digest_0.6.27         stringi_1.5.3        
-[37] polyclip_1.10-0       grid_4.0.3            rprojroot_2.0.2       tools_4.0.3          
-[41] magrittr_2.0.1        goftest_1.2-2         tibble_3.0.4          crayon_1.3.4         
-[45] pkgconfig_2.0.3       ellipsis_0.3.1        Matrix_1.2-18         rmarkdown_2.3        
-[49] rstudioapi_0.13       iterators_1.0.13      R6_2.5.0              rpart_4.1-15         
-[53] igraph_1.2.6          nlme_3.1-148          compiler_4.0.3    
+ [1] spatstat.linnet_2.0-0 tidyselect_1.1.0      xfun_0.22            
+ [4] purrr_0.3.4           sf_0.9-6              splines_4.0.3        
+ [7] lattice_0.20-41       spatstat.utils_2.1-0  vctrs_0.3.6          
+[10] generics_0.1.0        doSNOW_1.0.19         snow_0.4-3           
+[13] yaml_2.2.1            mgcv_1.8-31           rlang_0.4.10         
+[16] pillar_1.4.7          startup_0.14.1        spatstat.data_2.1-0  
+[19] e1071_1.7-4           spatstat_2.0-1        glue_1.4.2           
+[22] DBI_1.1.0             foreach_1.5.1         lifecycle_1.0.0      
+[25] stringr_1.4.0         spatstat.core_2.0-0   codetools_0.2-16     
+[28] knitr_1.31            parallel_4.0.3        class_7.3-17         
+[31] Rcpp_1.0.5            KernSmooth_2.23-17    tensor_1.5           
+[34] classInt_0.4-3        jsonlite_1.7.2        abind_1.4-5          
+[37] deldir_0.2-10         stringi_1.5.3         spatstat.sparse_2.0-0
+[40] polyclip_1.10-0       grid_4.0.3            rprojroot_2.0.2      
+[43] tools_4.0.3           magrittr_2.0.1        goftest_1.2-2        
+[46] tibble_3.0.6          crayon_1.4.1          pkgconfig_2.0.3      
+[49] ellipsis_0.3.1        Matrix_1.2-18         httr_1.4.2           
+[52] iterators_1.0.13      R6_2.5.0              rpart_4.1-15         
+[55] units_0.6-7           spatstat.geom_2.0-1   igraph_1.2.6         
+[58] nlme_3.1-148          compiler_4.0.3     
 ```
 
 ### Note
-The `nimbleCarbon` package includes the key function for all Bayesian analysis carried out in the manuscript. The package is currently on a private repo and the following command is required for its installation:
+The `nimbleCarbon` package includes the key function for all Bayesian analysis carried out in the manuscript. The package is currently on a github repo and the following command is required for the installation of a version required to reproduce the results and figures:
+
 ```
 library(devtools)
-install_github('ercrema/nimbleCarbon@v0.1-beta.0')
+install_github('ercrema/nimbleCarbon@4706e8f')
 ```
+
+
 
 # Funding
 This research was funded by the ERC grant _Demography, Cultural Change, and the Diffusion of Rice and Millets during the Jomon-Yayoi transition in prehistoric Japan (ENCOUNTER)_ (Project N. 801953, PI: Enrico Crema) and by a Philip Leverhulme Prize in archaeology awarded to Enrico Crema.
