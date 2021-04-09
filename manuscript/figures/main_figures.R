@@ -245,9 +245,9 @@ dev.off()
 tiff(filename = here('manuscript','figures','figure8.tiff'),units = 'in',res=300,width = 7.5, height=3.4)
 par(mfrow=c(1,3),mar=c(5,4,3,0.5))
 set.seed(123)
-modelPlot(dExponentialGrowth,a=3450,b=1850,params = params.m1,nsample = 500,alpha=0.01,main='m1',ylim=c(0,0.0025),calendar='BCAD')
-modelPlot(dDoubleExponentialGrowth,a=3450,b=1850,params = params.m2,nsample = 500,alpha=0.01,main='m2',ylim=c(0,0.0025),calendar='BCAD')
-modelPlot(dExponentialLogisticGrowth,a=3450,b=1850,params = params.m3,nsample = 500,alpha=0.01,main='m3',ylim=c(0,0.0025),calendar='BCAD')
+modelPlot(dExponentialGrowth,a=3450,b=1850,params = params.m1,nsample = 500,col='black',alpha=0.01,main='m1',ylim=c(0,0.0025),calendar='BCAD')
+modelPlot(dDoubleExponentialGrowth,a=3450,b=1850,params = params.m2,nsample = 500,col='black',alpha=0.01,main='m2',ylim=c(0,0.0025),calendar='BCAD')
+modelPlot(dExponentialLogisticGrowth,a=3450,b=1850,params = params.m3,nsample = 500,col='black',alpha=0.01,main='m3',ylim=c(0,0.0025),calendar='BCAD')
 dev.off()
 
 ### Figure 9 Posterior Predictive Checks ####
