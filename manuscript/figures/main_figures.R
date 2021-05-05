@@ -11,14 +11,12 @@ load(here('R_images','mcmc.m2.samples.RData'))
 load(here('R_images','mcmc.m3.samples.RData'))
 load(here('R_images','mcmc_diagnostics_and_ppcheck.RData'))
 
-## NOTE (PlosONE) : min width=2.63, max width=7.5, max.height=8.75
-
 ### Figure 1 (Observed SPD) ####
 tiff(filename = here('manuscript','figures','figure1.tiff'),units = 'in',res=300,width = 6, height=4,pointsize = 8)
 obs.spd = spd(obs.caldates,timeRange=c(3400,1850),spdnormalised = T)
 plot(obs.spd,calendar='BCAD',runm=100,ylim=c(0,0.002))
 lines(BPtoBCAD(obs.spd$grid$calBP),obs.spd$grid$PrDens,type='l',lty=2)
-legend('topleft',legend=c('SPD','Rolling Mean (100yrs)'),col=c('lightgrey','black'),lwd=c(8,1),lty=c(1,2))
+legend('topleft',legend=c('SPD','Rolling Mean (100yrs)'),col=c('black','lightgrey'),lwd=c(1,8),lty=c(2,1))
 dev.off()
 
 ### Figure 2 Growth Models ####
