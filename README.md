@@ -1,6 +1,6 @@
 # Data and R scripts for the manuscript  'A Bayesian approach for fitting and comparing demographic growth models of radiocarbon dates: a case study on the Jomon-Yayoi transition in Kyushu, Japan'
 
-This repository contains an updated version of the data and scripts used in the following manuscript.
+This repository contains an updated version of the data and scripts used in the following manuscript:
 
 Crema, E.R. and Shoda, S. 2021. A Bayesian approach for fitting and comparing demographic growth models of radiocarbon dates: a case study on the Jomon-Yayoi transition in Kyushu, Japan.
 
@@ -118,7 +118,7 @@ loaded via a namespace (and not attached):
 ```
 
 ### Note
-The `nimbleCarbon` package includes the key function for all Bayesian analysis carried out in the manuscript. The package is currently on a github repo and the following command is required for the installation of a version required to reproduce the results and figures:
+The `nimbleCarbon` package includes the key function for all Bayesian analysis carried out in the manuscript. The package is currently on a github repo and the following command is required for installing the specific version used to generate results and figures:
 
 ```
 library(devtools)
@@ -128,7 +128,7 @@ install_github('ercrema/nimbleCarbon@4706e8f')
 
 
 # Funding
-This research was funded by the ERC grant _Demography, Cultural Change, and the Diffusion of Rice and Millets during the Jomon-Yayoi transition in prehistoric Japan (ENCOUNTER)_ (Project N. 801953, PI: Enrico Crema) and by a Philip Leverhulme Prize in archaeology awarded to Enrico Crema.
+This research was funded by the ERC grant _Demography, Cultural Change, and the Diffusion of Rice and Millets during the Jomon-Yayoi transition in prehistoric Japan (ENCOUNTER)_ (Project N. 801953, PI: Enrico Crema) and by a Philip Leverhulme Prize (PLP-2019-304) in archaeology awarded to Enrico Crema.
 
 # Licence
 CC-BY 3.0
