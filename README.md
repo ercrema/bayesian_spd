@@ -2,7 +2,7 @@
 
 This repository contains an updated version of the data and scripts used in the following manuscript:
 
-Crema, E.R. and Shoda, S. 2021. A Bayesian approach for fitting and comparing demographic growth models of radiocarbon dates: a case study on the Jomon-Yayoi transition in Kyushu, Japan.
+Crema, E. R., & Shoda, S. (2021). [A Bayesian approach for fitting and comparing demographic growth models of radiocarbon dates: a case study on the Jomon-Yayoi transition in Kyushu (Japan)](https://doi.org/10.1371/journal.pone.0251695). PLOS ONE, 16(5), e0251695.
 
 The repository is organised into four main directories: [data](./data), [runscripts](./runscripts), [R_images](./R_images), and [manuscript](./manuscript). The [data](./data) directory contains the the raw data used for the case study, the [runscripts](./runscripts) contains all script for generating the simulated data as well as running the core Bayesian analyses, the [R_images](./R_images) directory includes all  R Image files of all outputs, and finally R scripts for generating figures and tables for the manuscript are included in [manuscript](./manuscript). 
 
