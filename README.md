@@ -1,6 +1,6 @@
 # Data and R scripts for the paper  'A Bayesian approach for fitting and comparing demographic growth models of radiocarbon dates: a case study on the Jomon-Yayoi transition in Kyushu, Japan'
 
-This repository contains an updated version of the data and scripts used in the following paper:
+This repository contains data and scripts used in the following paper:
 
 Crema, E. R., & Shoda, S. (2021). [A Bayesian approach for fitting and comparing demographic growth models of radiocarbon dates: a case study on the Jomon-Yayoi transition in Kyushu (Japan)](https://doi.org/10.1371/journal.pone.0251695). PLOS ONE, 16(5), e0251695.
 
